@@ -1,0 +1,15 @@
+.widget-location-text .right {
+    display: inline;
+}
+.widget-location-text .bottom {
+    display: none;
+}
+
+@media screen and (max-width: 800px) {
+    .widget-location-text .right {
+        display: none;
+    }
+    .widget-location-text .bottom {
+        display: inline;
+    }
+}
