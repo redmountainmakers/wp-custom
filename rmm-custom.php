@@ -77,3 +77,21 @@ HTML;
 }
 
 add_shortcode( 'widget-location-text', 'rmm_widget_location_shortcode' );
+
+
+/**
+ * Make sending emails work again (we use a DNS alias for the mail server name)
+ * http://serverfault.com/a/761973/34249
+ */
+
+add_filter( 'wp_mail_smtp_custom_options', function( $phpmailer ) {
+	$phpmailer->SMTPOptions = array(
+		'ssl' => array(
+			'verify_peer'       => true,
+			'verify_peer_name'  => false,
+			'allow_self_signed' => false,
+		),
+	);
+
+	return $phpmailer;
+} );
