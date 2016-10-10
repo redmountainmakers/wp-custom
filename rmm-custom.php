@@ -95,3 +95,15 @@ add_filter( 'wp_mail_smtp_custom_options', function( $phpmailer ) {
 
 	return $phpmailer;
 } );
+
+
+/**
+ * Allow administrators to upload SVG files
+ */
+
+add_filter( 'upload_mimes', function( $mime_types ) {
+	if ( current_user_can( 'manage_options' ) ) {
+		$mime_types['svg'] = 'image/svg+xml';
+	}
+	return $mime_types;
+} );
