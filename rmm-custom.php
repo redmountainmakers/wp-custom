@@ -107,3 +107,16 @@ add_filter( 'upload_mimes', function( $mime_types ) {
 	}
 	return $mime_types;
 } );
+
+// https://github.com/woocommerce/woocommerce/blob/2de494e/includes/class-wc-order.php#L173
+add_filter( 'woocommerce_order_item_needs_processing', function( $needs_processing, $product, $id ) {
+	// By default, WooCommerce will switch orders from 'payment pending' to
+	// 'processing' when paid, unless the product is both virtual and
+	// downloadable.  None of our virtual items (memberships) require
+	// processing, so switch them to 'completed' right away.
+	if ( $product->is_virtual() ) {
+		return false;
+	}
+
+	return $needs_processing;
+}, 10, 3 );
